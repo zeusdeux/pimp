@@ -1,0 +1,19 @@
+############
+## Windows
+############
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+
+
+#############
+## prom
+#############
+
+node_modules/
+*.sublime-project
+*.sublime-workspace
