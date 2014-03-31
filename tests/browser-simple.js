@@ -23,13 +23,16 @@
 		console.log("In prom2 onFF: " + v);
 	});
 
+	var prom4 = prom2.then(function(v) {
+		console.log("In 2nd then for prom2: " + v);
+	});
+
 	setTimeout(function() {
 		console.log("prom1.value should be 10 and is: " + prom1.value());
 		console.log("prom2.value should be 'new prom son' and is: " + prom2.value());
 		console.log("prom3.value should be undefined and is: " + prom3.value());
 	}, 6000);
 })(window.Prom);
-
 // process.nextTick in browser test
 // function test() {
 // 	console.log("1");
