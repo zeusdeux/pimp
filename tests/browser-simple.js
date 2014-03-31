@@ -1,3 +1,4 @@
+//Simple
 (function(Prom) {
 	var prom1 = new Prom(function(f, r) {
 		setTimeout(function() {
@@ -8,7 +9,7 @@
 	});
 
 	var prom2 = prom1.then(function(v) {
-		console.log("In prom1 onFF: " + v);
+		console.log("In 1st prom1 onFF: " + v);
 		var newProm = new Prom(function(f, r) {
 			setTimeout(function() {
 				console.log("--Fulfilling newProm--");
@@ -22,15 +23,61 @@
 	});
 
 	var prom3 = prom2.then(function(v) {
-		console.log("In prom2 onFF: " + v);
+		console.log("In 1st prom2 onFF: " + v);
+	});
+
+
+})(window.Prom);
+
+//Little less simple
+(function(Prom) {
+	var prom1 = new Prom(function(f, r) {
+		setTimeout(function() {
+			console.log("--Fulfilling prom1--");
+			f(10);
+			console.log("--Fulfilled prom1--");
+		}, 2000);
+	});
+
+	var prom1_5 = prom1.then(function(v) {
+		console.log("In 1st prom1 onFF");
+		return v;
+	});
+
+	var prom1_5_1 = prom1_5.then(function(v) {
+		console.log("In onFF of promise retured by 1st prom1.then");
+		return v;
+	});
+
+	var prom2 = prom1.then(function(v) {
+		console.log("In 2nd prom1 onFF: " + v);
+		var newProm = new Prom(function(f, r) {
+			setTimeout(function() {
+				console.log("--Fulfilling newProm--");
+				f("new prom son");
+				r("rejecting new prom immediately");
+				f("trying to fulfill new prom");
+				console.log("--Fulfilled newProm--");
+			}, 2000);
+		});
+
+		newProm.then(function(v) {
+			console.log("In newProm then. Value: " + v);
+		});
+
+		return newProm;
+	});
+
+	var prom3 = prom2.then(function(v) {
+		console.log("In 1st prom2 onFF: " + v);
 	});
 
 	var prom4 = prom2.then(function(v) {
-		console.log("In 2nd then for prom2: " + v);
+		console.log("In 2nd prom2 onFF: " + v);
 	});
 
 	var prom5 = prom1.then(function(v) {
-		console.log("In 2nd then for prom1: " + v);
+		console.log("In 3rd prom1 onFF: " + v);
 	});
 
 	var prom6 = prom1.then(7);
@@ -41,13 +88,15 @@
 		console.log("prom3.value should be undefined and is: " + prom3.value());
 	}, 6000);
 })(window.Prom);
+
+
 // process.nextTick in browser test
 // function test() {
-// 	console.log("1");
-// 	var x = setTimeout(y, 0);
-// 	console.log("2");
+//	console.log("1");
+//	var x = setTimeout(y, 0);
+//	console.log("2");
 // }
 
 // function y() {
-// 	console.log("3");
+//	console.log("3");
 // }

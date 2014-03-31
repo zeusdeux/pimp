@@ -17,3 +17,4 @@ Desktop.ini
 node_modules/
 *.sublime-project
 *.sublime-workspace
+core_old*.js
