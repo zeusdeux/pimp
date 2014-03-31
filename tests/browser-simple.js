@@ -13,6 +13,8 @@
 			setTimeout(function() {
 				console.log("--Fulfilling newProm--");
 				f("new prom son");
+				r("rejecting new prom immediately");
+				f("trying to fulfill new prom");
 				console.log("--Fulfilled newProm--");
 			}, 2000);
 		});
@@ -26,6 +28,12 @@
 	var prom4 = prom2.then(function(v) {
 		console.log("In 2nd then for prom2: " + v);
 	});
+
+	var prom5 = prom1.then(function(v) {
+		console.log("In 2nd then for prom1: " + v);
+	});
+
+	var prom6 = prom1.then(7);
 
 	setTimeout(function() {
 		console.log("prom1.value should be 10 and is: " + prom1.value());
