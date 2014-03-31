@@ -1,0 +1,28 @@
+{
+  "name": "prom",
+  "version": "0.0.0",
+  "description": "A simple Promise/A+ spec implementation that I am writing to understand the specification.",
+  "main": "lib/core.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zeusdeux/prom.git"
+  },
+  "keywords": [
+    "promises",
+    "javascript",
+    "a+",
+    "node"
+  ],
+  "author": "Mudit Ameta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zeusdeux/prom/issues"
+  },
+  "homepage": "https://github.com/zeusdeux/prom",
+  "devDependencies": {
+    "promises-aplus-tests": "^2.0.4"
+  }
+}
