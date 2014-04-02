@@ -89,6 +89,23 @@
 	}, 6000);
 })(window.Prom);
 
+(function(Prom) {
+	Prom.reject(123).then(23, function(v) {
+		console.log("DENIED! Val: " + v);
+		return Prom.reject(23);
+	}).then(3, function(v) {
+		console.log(v);
+	});
+
+	Prom.resolve(123).then(undefined, function(v) {
+		console.log("DENIED! Val: " + v);
+		return Prom.reject(23);
+	}).then(function(v) {
+		console.log(v);
+	});
+})(window.Prom);
+
+
 
 // process.nextTick in browser test
 // function test() {
