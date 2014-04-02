@@ -14,6 +14,3 @@ exports.deferred = function() {
 	};
 
 };
-
-exports.rejected = Prom.reject;
-exports.resolved = Prom.resolve;
