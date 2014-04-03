@@ -90,19 +90,49 @@
 })(window.Prom);
 
 (function(Prom) {
-	Prom.reject(123).then(23, function(v) {
-		console.log("DENIED! Val: " + v);
-		return Prom.reject(23);
-	}).then(3, function(v) {
-		console.log(v);
-	});
 
-	Prom.resolve(123).then(undefined, function(v) {
-		console.log("DENIED! Val: " + v);
-		return Prom.reject(23);
-	}).then(function(v) {
-		console.log(v);
-	});
+	console.log("Prom.rejected test:");
+	console.log("--------------------------------------------------------------------");
+	Prom.rejected("1st Prom.rejected call was made")
+		.then(23, function(v) {
+			console.log("DENIED! Val: %o", v);
+			return Prom.rejected(23);
+		})
+		.then(3, function(v) {
+			console.log("2nd chained then to Prom.rejected. Val: %o", v);
+		});
+
+		Prom.rejected("2nd Prom.rejected call was made")
+		.then(23, function(v) {
+			console.log("DENIED! Val: %o", v);
+			return Prom.rejescted(23); //deliberate typo
+		})
+		.then(3, function(v) {
+			console.log("2nd chained then to Prom.rejected. Val: %o", v);
+		});
+})(window.Prom);
+
+(function(Prom) {
+
+	console.log("Prom.resolved test:");
+	console.log("--------------------------------------------------------------------");
+	Prom.resolved("1st Prom.resolved call was made")
+		.then(undefined, function(v) {
+			console.log("DENIED! Val: " + v);
+			return Prom.rejected(23);
+		})
+		.then(function(v) {
+			console.log("2nd chained then to Prom.resolved. Val: %o", v);
+		});
+		Prom.resolved("2nd Prom.resolved call was made")
+		.then(undefined, function(v) {
+			console.log("DENIED! Val: " + v);
+			return Prom.resjected(23); //deliberate typo
+		})
+		.then(function(v) {
+			console.log("2nd chained then to Prom.resolved. Val: %o", v);
+		});
+
 })(window.Prom);
 
 
