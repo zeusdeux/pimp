@@ -20,4 +20,3 @@ node_modules/
 core_old*.js
 *.log
 .jsh*
-lib/callAsap.js
