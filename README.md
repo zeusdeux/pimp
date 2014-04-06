@@ -140,3 +140,6 @@ racer.then(function(value) {
 });
 ```
 
+####Note:
+- If any value in the iterable is not `thenable` then it is first cast to a `Promise` using `Pimp.cast` internally
+
