@@ -4,6 +4,22 @@ pimp
 A simple (P)romise/A+ spec compliant (imp)lementation that I wrote to wrap my head around it.   
 It passes all the tests that are part of the [Promises/A+ Compliance Test Suite](https://github.com/promises-aplus/promises-tests).
 
+##Installation
+
+####For `node`:   
+```javascript
+npm install pimp
+```
+
+Then go ahead and `require` it in your `node` projects as:   
+```javascript
+var pimp = require('pimp')
+```
+
+####For browsers:
+
+#####Coming soon!
+
 ##Constructor
 
 ###Pimp(function)
