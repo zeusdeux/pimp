@@ -129,3 +129,28 @@
         });
 
 })(window.Pimp);
+
+//tests for Pimp.race and Pimp.all
+(function(Pimp) {
+    var p1 = new Pimp(function(resolve, reject) {
+        setTimeout(resolve, 500, "one");
+    });
+    var p2 = new Pimp(function(resolve, reject) {
+        setTimeout(resolve, 400, "two");
+    });
+    var p3 = new Pimp(function(resolve, reject) {
+        setTimeout(resolve, 1000, "three");
+    });
+    var p4 = new Pimp(function(resolve, reject) {
+        setTimeout(resolve, 200, "four");
+    });
+
+    var racer = Pimp.race([p1, p2, p3, p4]);
+    racer.then(function(value) {
+        console.log("Value resulting from Pimp.race: %o", value);
+    });
+
+    Pimp.all([45, true, p, racer]).then(function(values) {
+        console.log("Values resulting from Pimp.all: %o", values);
+    });
+})(window.Pimp);
