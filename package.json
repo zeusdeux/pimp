@@ -1,27 +1,33 @@
 {
-  "name": "prom",
-  "version": "0.0.0",
-  "description": "A simple Promise/A+ spec implementation that I am writing to understand the specification.",
-  "main": "lib/core.js",
+  "name": "pimp",
+  "version": "0.1.0",
+  "description": "Pimp is a small & simple (P)romise/A+ (imp)lementation that I wrote to wrap my head around the spec.",
+  "main": "lib/wrap.js",
   "scripts": {
     "test": "promises-aplus-tests tests/compliance_adapter"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zeusdeux/prom.git"
+    "url": "https://github.com/zeusdeux/pimp.git"
   },
   "keywords": [
+    "pimp",
     "promises",
+    "promise",
+    "promises-aplus",
+    "deferred",
+    "future",
     "javascript",
     "a+",
-    "node"
+    "node",
+    "browser"
   ],
   "author": "Mudit Ameta",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/zeusdeux/prom/issues"
+    "url": "https://github.com/zeusdeux/pimp/issues"
   },
-  "homepage": "https://github.com/zeusdeux/prom",
+  "homepage": "https://github.com/zeusdeux/pimp",
   "devDependencies": {
     "promises-aplus-tests": "^2.0.4"
   }
