@@ -1,4 +1,4 @@
-var Prom = require('../lib/core2');
+var Prom = require('../lib/wrap');
 
 exports.deferred = function() {
 	var res, rej;
