@@ -93,7 +93,10 @@ Pimp.cast(";-;").then(function(v){
 
 ###Pimp.all(iterable)
 Returns a `Promise` which resolves when all elements in the iterable resolve.   
-Its value is an Array of the values returned by each element in the iterable.
+Its value is an Array of the values returned by each element in the iterable.   
+If any value in the iterable rejects, then the Promise returned by `Pimp.all` immediately rejects.   
+`Pimp.all` discards all other items in the iterable list irrespective of their state when a reject occurs.   
+It rejects with the value returned by what had rejected in the iterable list passed to `Pimp.all`.
 
 Example:
 ```javascript
