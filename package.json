@@ -1,6 +1,6 @@
 {
   "name": "pimp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Pimp is a small & simple (P)romise/A+ (imp)lementation that I wrote to wrap my head around the spec.",
   "main": "lib/wrap.js",
   "scripts": {
