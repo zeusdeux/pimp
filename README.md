@@ -107,7 +107,8 @@ var p2 = new Pimp(function(resolve, reject) {
 });
 
 Pimp.all([45, true, p1, p2]).then(function(values) {
-    console.log("Values resulting from Pimp.all: %o", values); //logs Values resulting from Pimp.all: [45, true, "one", "two"]
+    //logs Values resulting from Pimp.all: [45, true, "one", "two"]
+    console.log("Values resulting from Pimp.all: %o", values);
 });
 ```
 
@@ -134,7 +135,8 @@ var p4 = new Pimp(function(resolve, reject) {
 
 var racer = Pimp.race([p1, p2, p3, p4]);
 racer.then(function(value) {
-    console.log("Value resulting from Pimp.race: %o", value); //logs Value resulting from Pimp.race: "four"
+    //logs Value resulting from Pimp.race: "four"
+    console.log("Value resulting from Pimp.race: %o", value);
 });
 ```
 
