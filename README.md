@@ -14,12 +14,12 @@ They can be used to resolve/fulfill or reject the `Promise` that was returned by
 Example:
 ```javascript
 var prom1 = new Pimp(function(fulfill, reject) {
-        setTimeout(function() {
-            console.log("--Fulfilling prom1--");
-            fulfill(10);
-            console.log("--Fulfilled prom1--");
-        }, 2000);
-    });
+    setTimeout(function() {
+        console.log("--Fulfilling prom1--");
+        fulfill(10);
+        console.log("--Fulfilled prom1--");
+    }, 2000);
+});
 
 prom1.then(function(v){
     console.log(v); //logs 10
