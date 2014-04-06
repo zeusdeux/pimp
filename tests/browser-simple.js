@@ -150,7 +150,7 @@
         console.log("Value resulting from Pimp.race: %o", value);
     });
 
-    Pimp.all([45, true, p, racer]).then(function(values) {
+    Pimp.all([45, true, p4, racer]).then(function(values) {
         console.log("Values resulting from Pimp.all: %o", values);
     });
 })(window.Pimp);
