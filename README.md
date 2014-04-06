@@ -112,7 +112,7 @@ Pimp.all([45, true, p1, p2]).then(function(values) {
 });
 ```
 
-####Note:
+#####Note:
 - If any value in the iterable is not `thenable` then it is first cast to a `Promise` using `Pimp.cast` internally
 
 ###Pimp.race(iterable)
@@ -140,6 +140,6 @@ racer.then(function(value) {
 });
 ```
 
-####Note:
+#####Note:
 - If any value in the iterable is not `thenable` then it is first cast to a `Promise` using `Pimp.cast` internally
 
