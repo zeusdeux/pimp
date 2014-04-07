@@ -51,16 +51,14 @@ You can call `then` on a Promise as many times you want.
 Also, You can chain as many `then` calls as you want.      
 All registered handlers will be run in sequence when the Promise resolves.   
 
-It basically does all that a Promises/A+ compliant method should do.    
+It basically does all that a Promises/A+ compliant `then` method should do.    
 Read more [here](http://promises-aplus.github.io/promises-spec/#the__method).
 
 Example:
 ```javascript
-var prom1 = new Pimp(function(f, r) {
+var prom1 = new Pimp(function(fulfill, r) {
     setTimeout(function() {
-        console.log("--Fulfilling prom1--");
-        f(10);
-        console.log("--Fulfilled prom1--");
+        fulfill(10);
     }, 2000);
 });
 
