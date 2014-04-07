@@ -1,5 +1,6 @@
 pimp
 ====
+[![Build Status](https://travis-ci.org/zeusdeux/pimp.svg?branch=master)](https://travis-ci.org/zeusdeux/pimp)
 
 A simple (P)romise/A+ spec compliant (imp)lementation that I wrote to wrap my head around it.   
 It passes all the tests that are part of the [Promises/A+ Compliance Test Suite](https://github.com/promises-aplus/promises-tests).
