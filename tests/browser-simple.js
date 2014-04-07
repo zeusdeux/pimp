@@ -154,3 +154,40 @@
     console.log("Values resulting from Pimp.all: %o", values);
   });
 })(window.Pimp);
+
+
+(function(Pimp) {
+  var p1 = new Pimp(function(resolve, reject) {
+    setTimeout(reject, 500, "one");
+  });
+  var p2 = new Pimp(function(resolve, reject) {
+    setTimeout(reject, 400, "two");
+  });
+  var p3 = new Pimp(function(resolve, reject) {
+    setTimeout(reject, 1000, "three");
+  });
+  var p4 = new Pimp(function(resolve, reject) {
+    setTimeout(reject, 200, "four");
+  });
+  var p5 = new Pimp(function(resolve, reject) {
+    setTimeout(resolve, 200, "five");
+  });
+
+  Pimp.allFail([p1, p2, p3, p4]).then(
+    function(v) {
+      console.log("Atleast one fulfilled. Value: %o", v);
+    },
+    function(v) {
+      console.log("All failed. Values: %o", v);
+    }
+  );
+
+  Pimp.allFail([p1, p2, p3, p4, p5]).then(
+    function(v) {
+      console.log("Atleast one fulfilled. Value: %o", v);
+    },
+    function(v) {
+      console.log("All failed. Values: %o", v);
+    }
+  );
+})(window.Pimp);
