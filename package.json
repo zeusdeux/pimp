@@ -4,7 +4,7 @@
   "description": "Pimp is a small & simple (P)romise/A+ (imp)lementation that I wrote to wrap my head around the spec.",
   "main": "lib/wrap.js",
   "scripts": {
-    "test": "promises-aplus-tests tests/compliance_adapter"
+    "test": "promises-aplus-tests tests/compliance_adapter && mocha tests/pimpTests.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,8 @@
   },
   "homepage": "https://github.com/zeusdeux/pimp",
   "devDependencies": {
-    "promises-aplus-tests": "^2.0.4"
+    "mocha": "^1.18.2",
+    "promises-aplus-tests": "^2.0.4",
+    "should": "^3.3.1"
   }
 }
