@@ -33,7 +33,17 @@ var pimp = require('pimp')
 - [inspect](#inspect)
 - [catch](#catchrejectionHandler)
 
-###[Static]
+###Static
+
+- [resolve](#pimpresolvevalue)
+- [reject](#pimprejectreason)
+- [cast](#pimpcastvalue)
+- [all](#pimpalliterable)
+- [allFail](#allFailiterable)
+- [race](#pimpraceiterable)
+- [deferred](#pimpdeferred)
+- [denodeify](#pimpdenodeify)
+
 
 ##Constructor
 
@@ -146,8 +156,8 @@ Pimp.cast(";-;").then(function(v){
 
 ###Pimp.all(iterable)
 It returns a `Promise` which resolves when all elements in the iterable resolve.   
-Its value is an Array of the values returned by each element in the iterable.   
-If any value in the iterable rejects, then the Promise returned by `Pimp.all` immediately rejects.   
+Its value is an Array of the values returned by each promise in the iterable on their resolution.   
+If any value in the iterable rejects, then the Promise returned by `Pimp.all` immediately rejects with its reason.   
 `Pimp.all` discards all other items in the iterable list irrespective of their state when a reject occurs.   
 It rejects with the value returned by what had rejected in the iterable list passed to `Pimp.all`.
 
@@ -169,8 +179,33 @@ Pimp.all([45, true, p1, p2]).then(function(values) {
 #####Note:
 - If any value in the iterable is not `thenable` then it is first cast to a `Promise` using `Pimp.cast` internally
 
+###Pimp.allFail(iterable)
+It returns a `Promise` which resolves when all elements in the iterable reject.   
+Its value is an Array of the reasons returned by each promise in the iterable on their rejection.   
+If any value in the iterable resolves, then the Promise returned by `Pimp.all` immediately rejects with its value.   
+`Pimp.allFail` discards all other items in the iterable list irrespective of their state when a resolution occurs.   
+It rejects with the value returned by what had resolved in the iterable list passed to `Pimp.allFail`.
+
+Example:
+```javascript
+var p1 = new Pimp(function(resolve, reject) {
+    setTimeout(reject, 200, "one");
+});
+var p2 = new Pimp(function(resolve, reject) {
+    setTimeout(reject, 500, "two");
+});
+
+Pimp.allFail([p1, p2]).then(function(values) {
+    //logs Values resulting from Pimp.all: ["one", "two"] 
+    console.log("Values resulting from Pimp.allFail: %o", values);
+});
+```
+
+#####Note:
+- If any value in the iterable is not `thenable` then it is first cast to a `Promise` using `Pimp.cast` internally
+
 ###Pimp.race(iterable)
-It returns a `Promise` that adopts the state of the first item in the iterable that resolves.   
+It returns a `Promise` that adopts the value/reason of the first item in the iterable that resolves or rejects.   
 
 Example:
 ```javascript
@@ -178,10 +213,10 @@ var p1 = new Pimp(function(resolve, reject) {
     setTimeout(resolve, 500, "one");
 });
 var p2 = new Pimp(function(resolve, reject) {
-    setTimeout(resolve, 400, "two");
+    setTimeout(reject, 400, "two");
 });
 var p3 = new Pimp(function(resolve, reject) {
-    setTimeout(resolve, 1000, "three");
+    setTimeout(reject, 1000, "three");
 });
 var p4 = new Pimp(function(resolve, reject) {
     setTimeout(resolve, 200, "four");
