@@ -21,6 +21,20 @@ var pimp = require('pimp')
 
 #####Coming soon!
 
+##API
+
+###[Constructor](#constructor)
+
+- [Pimp](#pimpfunction)
+
+###[Public](#public-methods)
+
+- [then](#thenonfulfilled-onrejected)
+- [inspect](#inspect)
+- [catch](#catchrejectionHandler)
+
+###[Static]
+
 ##Constructor
 
 ###Pimp(function)
@@ -71,10 +85,34 @@ prom1.then(function(v) {
 });
 ```
 
+###inspect()
+It tells you the current state of the promise.
+It returns an object of the form:
+```javascript
+{
+    state: \<state of promise\>,
+    value/reason: \<value/reason of promise\>
+}
+```
+
+###catch(rejectionHandler)
+It adds a rejection handler to the promise it is called on.
+It returns a new promise that resolves to the value of the parent promise or calls   
+`rejectionHandler` with the reason the parent promise rejected with.
+It is essentially a short hand for `.then( function(v){ return v; }, rejectionHandler )`.
+
+Example:
+```javascript
+var p = Pimp.reject(10);
+p.catch(function(v){
+    console.log(v); //logs 10
+});
+```
+
 ##Static methods
 
 ###Pimp.resolve(value)
-Returns a `Promise` that is *resolved* to the value passed to it. The value can be any value as specified [here](http://promises-aplus.github.io/promises-spec/#terminology).    
+It returns a `Promise` that is *resolved* to the value passed to it. The value can be any value as specified [here](http://promises-aplus.github.io/promises-spec/#terminology).    
 If it's a `thenable` then the returned `Promise` resolves to it as per the [Promises/A+ Resolution Procedure](http://promises-aplus.github.io/promises-spec/#the_promise_resolution_procedure).
 
 Example:
@@ -85,7 +123,7 @@ Pimp.resolve(10).then(function(v){
 ```
 
 ###Pimp.reject(reason)
-Returns a `Promise` whose state is *rejected* and value is the reason provided.
+It returns a `Promise` whose state is *rejected* and value is the reason provided.
 
 Example:
 ```javascript
@@ -97,17 +135,17 @@ Pimp.reject("DENIED!").then(function(v) {
 ```
 
 ###Pimp.cast(value)
-Casts the value to a `Promise` and returns the `Promise`.
+Casts the value to a `Promise` of type `Pimp` and returns the `Promise`.
 
 Example:
 ```javascript
 Pimp.cast(";-;").then(function(v){
     console.log(v); //logs ;-;
-})
+});
 ```
 
 ###Pimp.all(iterable)
-Returns a `Promise` which resolves when all elements in the iterable resolve.   
+It returns a `Promise` which resolves when all elements in the iterable resolve.   
 Its value is an Array of the values returned by each element in the iterable.   
 If any value in the iterable rejects, then the Promise returned by `Pimp.all` immediately rejects.   
 `Pimp.all` discards all other items in the iterable list irrespective of their state when a reject occurs.   
@@ -132,7 +170,7 @@ Pimp.all([45, true, p1, p2]).then(function(values) {
 - If any value in the iterable is not `thenable` then it is first cast to a `Promise` using `Pimp.cast` internally
 
 ###Pimp.race(iterable)
-Returns a `Promise` that adopts the state of the first item in the iterable that resolves.   
+It returns a `Promise` that adopts the state of the first item in the iterable that resolves.   
 
 Example:
 ```javascript
@@ -159,3 +197,38 @@ racer.then(function(value) {
 #####Note:
 - If any value in the iterable is not `thenable` then it is first cast to a `Promise` using `Pimp.cast` internally
 
+###Pimp.deferred()
+It returns an object (a "deferred") of the form:
+
+```javascript
+{
+    promise: promise,
+    resolve: promise.resolve,
+    reject: promise.reject,
+    inspect: promise.inspect
+}
+```
+
+Example:
+```javascript
+var p = Pimp.deferred();
+p.resolve(10);
+console.log(p.inspect().value); //logs 10
+```
+
+###Pimp.denodeify()
+It takes a Node.js style, callback accepting function and returns a promise returning function.
+
+Example:
+```javascript
+var nodeReadFile = require('fs').readFile;
+var promisifiedReadFile = Pimp.denodeify(nodeReadFile);
+var filePromise = promisifiedReadFile("./path/to/a/file", { encoding: "utf8" });
+
+//assume file contains the data "10"
+
+filePromise.then(function(data){
+    console.log(data); //logs 10
+    return data;
+});
+```
