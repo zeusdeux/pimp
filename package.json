@@ -4,9 +4,9 @@
   "description": "Pimp is a small & simple (P)romise/A+ (imp)lementation that I wrote to wrap my head around the spec.",
   "main": "lib/wrap.js",
   "scripts": {
-    "test": "( set PIMP_LIB_DIR=../lib/wrap || export PIMP_LIB_DIR=../lib/wrap ) && promises-aplus-tests tests/compliance_adapter && mocha tests/pimpTests.js",
-    "build": "( set PIMP_LIB_DIR=../lib/wrap || export PIMP_LIB_DIR=../lib/wrap ) && promises-aplus-tests tests/compliance_adapter && mocha tests/pimpTests.js && node generateBrowserVersion",
-    "cov": "rm -f instrumented/* && jscoverage lib instrumented && ( set PIMP_LIB_DIR=../instrumented/wrap || export PIMP_LIB_DIR=../instrumented/wrap ) && mocha -R html-cov tests/pimpTests.js > coverage.html"
+    "test": "( export PIMP_LIB_DIR=../lib/wrap || set PIMP_LIB_DIR=../lib/wrap ) && promises-aplus-tests tests/compliance_adapter && mocha tests/pimpTests.js",
+    "build": "( export PIMP_LIB_DIR=../lib/wrap || set PIMP_LIB_DIR=../lib/wrap ) && promises-aplus-tests tests/compliance_adapter && mocha tests/pimpTests.js && node generateBrowserVersion",
+    "cov": "rm -f instrumented/* && jscoverage lib instrumented && ( export PIMP_LIB_DIR=../instrumented/wrap || set PIMP_LIB_DIR=../instrumented/wrap ) && mocha -R html-cov tests/pimpTests.js > coverage.html"
   },
   "repository": {
     "type": "git",
