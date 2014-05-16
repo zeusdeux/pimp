@@ -90,8 +90,8 @@ It tells you the current state of the promise.
 It returns an object of the form:
 ```javascript
 {
-    state: \<state of promise\>,
-    value/reason: \<value/reason of promise\>
+    state: <state of promise>,
+    value/reason: <value/reason of promise>
 }
 ```
 
