@@ -31,7 +31,7 @@ var pimp = require('pimp')
 
 - [then](#thenonfulfilled-onrejected)
 - [inspect](#inspect)
-- [catch](#catchrejectionHandler)
+- [catch](#catchrejectionhandler)
 
 ###Static
 
