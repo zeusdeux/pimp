@@ -9,7 +9,7 @@ It passes all the tests that are part of the [Promises/A+ Compliance Test Suite]
 
 ####For `node`:   
 ```javascript
-npm install pimp
+npm install pimp --save-dev
 ```
 
 Then go ahead and `require` it in your `node` projects as:   
