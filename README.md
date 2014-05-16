@@ -23,11 +23,11 @@ var pimp = require('pimp')
 
 ##API
 
-###[Constructor](#constructor)
+###Constructor
 
 - [Pimp](#pimpfunction)
 
-###[Public](#public-methods)
+###Public
 
 - [then](#thenonfulfilled-onrejected)
 - [inspect](#inspect)
