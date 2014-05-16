@@ -156,7 +156,7 @@ Pimp.cast(";-;").then(function(v){
 
 ###Pimp.all(iterable)
 It returns a `Promise` which resolves when all elements in the iterable resolve.   
-Its value is an Array of the values returned by each promise in the iterable on their resolution.   
+Its value is an `Array` of the values returned by each promise in the iterable on their resolution.   
 If any value in the iterable rejects, then the Promise returned by `Pimp.all` immediately rejects with its reason.   
 `Pimp.all` discards all other items in the iterable list irrespective of their state when a reject occurs.   
 It rejects with the value returned by what had rejected in the iterable list passed to `Pimp.all`.
@@ -181,7 +181,7 @@ Pimp.all([45, true, p1, p2]).then(function(values) {
 
 ###Pimp.allFail(iterable)
 It returns a `Promise` which resolves when all elements in the iterable reject.   
-Its value is an Array of the reasons returned by each promise in the iterable on their rejection.   
+Its value is an `Array` of the reasons returned by each promise in the iterable on their rejection.   
 If any value in the iterable resolves, then the Promise returned by `Pimp.all` immediately rejects with its value.   
 `Pimp.allFail` discards all other items in the iterable list irrespective of their state when a resolution occurs.   
 It rejects with the value returned by what had resolved in the iterable list passed to `Pimp.allFail`.
