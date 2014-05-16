@@ -18,3 +18,4 @@ node_modules/
 core_old*.js
 *.log
 .jsh*
+instrumented/*

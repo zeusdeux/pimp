@@ -4,9 +4,11 @@
   "description": "Pimp is a small & simple (P)romise/A+ (imp)lementation that I wrote to wrap my head around the spec.",
   "main": "lib/wrap.js",
   "scripts": {
-    "test": "( export PIMP_LIB_DIR=../lib/wrap || set PIMP_LIB_DIR=../lib/wrap ) && promises-aplus-tests tests/compliance_adapter && mocha tests/pimpTests.js",
-    "build": "( export PIMP_LIB_DIR=../lib/wrap || set PIMP_LIB_DIR=../lib/wrap ) && promises-aplus-tests tests/compliance_adapter && mocha tests/pimpTests.js && node generateBrowserVersion",
-    "cov": "rm -f instrumented/* && jscoverage lib instrumented && ( export PIMP_LIB_DIR=../instrumented/wrap || set PIMP_LIB_DIR=../instrumented/wrap ) && mocha -R html-cov tests/pimpTests.js > coverage.html"
+    "test": "promises-aplus-tests tests/compliance_adapter && PIMP_LIB_DIR=../lib/wrap mocha tests/pimpTests.js",
+    "build": "npm test && node generateBrowserVersion",
+    "instrument": "rm -fr instrumented && mkdir instrumented && jscoverage lib instrumented",
+    "clean": "rm -fr instrumented",
+    "cov": "npm run-script instrument && PIMP_LIB_DIR=../instrumented/wrap mocha -R html-cov tests/pimpTests.js > coverage.html && npm run-script clean"
   },
   "repository": {
     "type": "git",
