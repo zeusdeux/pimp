@@ -19,7 +19,10 @@ var pimp = require('pimp')
 
 ####For browsers:
 
-#####Coming soon!
+You can grab `pimp.min.js` and its sourcemap `pimp.min.map` (optional) from the browser folder and   
+import it using the usual `<script></script>` tags anywhere in your code.   
+It will add `Pimp` to the `window` object as `window.Pimp`. From there, you can use it as a normal   
+constructor.
 
 ##API
 
@@ -43,6 +46,10 @@ var pimp = require('pimp')
 - [race](#pimpraceiterable)
 - [deferred](#pimpdeferred)
 - [denodeify](#pimpdenodeify)
+
+###Changelog
+
+- [0.2.0](#020)
 
 
 ##Constructor
@@ -267,3 +274,13 @@ filePromise.then(function(data){
     return data;
 });
 ```
+##Changelog
+
+####0.2.0
+- Added `Pimp.prototype.catch`
+- Added `Pimp.denodeify`
+- Added `Pimp.deferred`
+- Changed how `Pimp.cast` works (it now follows the spec)
+- Added support for browsers
+- Added automated system for generating Pimp for the browser
+- Added a test suite
