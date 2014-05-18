@@ -4,7 +4,7 @@ test:
 	@PIMP_LIB_DIR=../lib/wrap ./node_modules/.bin/mocha tests/pimpTests.js
 
 gen-browser:
-	./generateBrowserVersion.js
+	node ./generateBrowserVersion.js
 
 lib-cov:
 	@jscoverage lib instrumented
