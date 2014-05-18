@@ -1,0 +1,35 @@
+{
+  "name": "pimp",
+  "version": "0.2.0",
+  "homepage": "https://github.com/zeusdeux/pimp",
+  "authors": [
+    "Mudit Ameta <zeusdeux@gmail.com>"
+  ],
+  "description": "Pimp is a small & simple (P)romise/A+ (imp)lementation",
+  "main": ["browser/pimp.min.js","browser/pimp.min.map"],
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "pimp",
+    "promises",
+    "promise",
+    "promises-aplus",
+    "deferred",
+    "future",
+    "javascript",
+    "a+",
+    "node",
+    "browser"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "instrumented",
+    "*.sublime*"
+  ]
+}
