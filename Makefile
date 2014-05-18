@@ -13,7 +13,7 @@ lib-cov:
 clean:
 	rm -fr instrumented
 
-gen-cov: clean lib-cov clean
+gen-cov: clean lib-cov
 	rm -fr instrumented
 
 build: test gen-browser clean
