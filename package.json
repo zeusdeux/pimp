@@ -3,13 +3,6 @@
   "version": "0.2.0",
   "description": "Pimp is a small & simple (P)romise/A+ (imp)lementation that I wrote to wrap my head around the spec.",
   "main": "lib/wrap.js",
-  "scripts": {
-    "test": "promises-aplus-tests tests/compliance_adapter && PIMP_LIB_DIR=../lib/wrap mocha tests/pimpTests.js",
-    "clean": "rm -fr instrumented",
-    "build": "npm test && node generateBrowserVersion && npm run-script clean",
-    "instrument": "rm -fr instrumented && mkdir instrumented && jscoverage lib instrumented",
-    "cov": "npm test && npm run-script instrument && PIMP_LIB_DIR=../instrumented/wrap mocha -R html-cov tests/pimpTests.js > coverage.html && npm run-script clean"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/zeusdeux/pimp.git"
