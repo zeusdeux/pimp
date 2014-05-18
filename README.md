@@ -19,10 +19,16 @@ var pimp = require('pimp')
 
 ####For browsers:
 
-You can grab `pimp.min.js` and its sourcemap `pimp.min.map` (optional) from the browser folder and   
-import it using the usual `<script></script>` tags anywhere in your code.   
-It will add `Pimp` to the `window` object as `window.Pimp`. From there, you can use it as a normal   
-constructor.
+Install using `bower`: 
+```javascript
+bower install pimp
+```
+
+#####or
+
+You can grab `pimp.min.js` and its source map `pimp.min.map` (optional) from the browser folder   
+and import it using the usual `<script></script>` tags anywhere in your code.   
+It will add a `Pimp` constructor to the `window` object as `window.Pimp` for you to use.
 
 ##API
 
