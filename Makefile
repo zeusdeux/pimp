@@ -8,7 +8,7 @@ gen-browser:
 
 lib-cov:
 	@jscoverage lib instrumented
-	PIMP_LIB_DIR=../instrumented/wrap ./node_modules/.bin/mocha -R html-cov tests/pimpTests.js > coverage.html
+	@PIMP_LIB_DIR=../instrumented/wrap ./node_modules/.bin/mocha -R html-cov tests/pimpTests.js > coverage.html
 
 clean:
 	rm -fr instrumented
