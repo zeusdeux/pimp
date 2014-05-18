@@ -197,24 +197,18 @@
       }
     }
   }
-
-  Promise.prototype.catch = function(fn) {
-    return this.then(function(v) {
-      return v;
-    }, fn);
-  };
 })(typeof module === "undefined" ? window : module);
 
 //Pimp wrap: 
 (function(global) {
   'use strict';
-  
+
   if (global.toString() === "[object Window]" && typeof require === "undefined") {
     require = function() {
       return global.Pimp;
     };
   }
-  
+
   var Pimp = require("./pimp");
 
   if (global.exports) {
@@ -247,6 +241,12 @@
     }
     return true;
   }
+
+  Pimp.prototype.catch = function(fn) {
+    return this.then(function(v) {
+      return v;
+    }, fn);
+  };
 
   Pimp.resolve = function(value) {
     return new Pimp(function(ff) {
