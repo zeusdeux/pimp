@@ -293,7 +293,7 @@ filePromise.then(function(data){
 
 ##Note
 
-- To be able to run `npm run-script cov` to generate coverage data, you must install [node-jscoverage](https://github.com/visionmedia/node-jscoverage)
+- To be able to run `make gen-cov` to generate coverage data, you must install [node-jscoverage](https://github.com/visionmedia/node-jscoverage)
 - It must also be available in your PATH env variable so that it can be executed from anywhere
 - Since [node-jscoverage](https://github.com/visionmedia/node-jscoverage) isn't a node project, I have not listed it   
 as a dependency but it sure is if you want to generate coverage info.
