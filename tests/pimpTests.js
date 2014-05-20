@@ -108,8 +108,7 @@ describe("pimp", function() {
         var p = new Pimp(function(f, r) {
           r(10);
         });
-        p.
-        catch (function(reason) {
+        p.catch(function(reason) {
           try {
             p.inspect().should.be.an.instanceOf(Object).and.have.properties({
               state: "rejected",
@@ -128,8 +127,7 @@ describe("pimp", function() {
         var p = new Pimp(function(f, r) {
           f(10);
         });
-        p.
-        catch (function(reason) {
+        p.catch(function(reason) {
           return -1;
         }).then(function(v) {
           try {
@@ -257,8 +255,7 @@ describe("pimp", function() {
         p.should.be.an.instanceOf(Pimp);
         p.should.have.property("then");
         p.inspect().state.should.be.exactly("pending");
-        p.
-        catch (function(v) {
+        p.catch(function(v) {
           try {
             v.should.be.exactly("gtfo", "promise returned by Pimp.all rejected with a value other than that of the rejected promise");
             done();
@@ -311,8 +308,7 @@ describe("pimp", function() {
         p.should.be.an.instanceOf(Pimp);
         p.should.have.property("then");
         p.inspect().state.should.be.exactly("pending");
-        p.
-        catch (function(v) {
+        p.catch(function(v) {
           try {
             v.should.be.exactly("gtfo", "promise returned by Pimp.all rejected with a value other than that of the rejected promise");
             done();
@@ -358,8 +354,7 @@ describe("pimp", function() {
         p.should.be.an.instanceOf(Pimp);
         p.should.have.property("then");
         p.inspect().state.should.be.exactly("pending");
-        p.
-        catch (function(v) {
+        p.catch(function(v) {
           try {
             v.should.be.exactly("one", "promise resolved with the wrong value " + v + " instead of 'one'");
             done();
@@ -380,7 +375,7 @@ describe("pimp", function() {
     });
   });
   describe("#deferred", function() {
-    ! function() {
+    !function() {
       var p = Pimp.deferred();
       it("should return an object consisting of {promise, resolve, reject}", function() {
         p.should.have.properties("promise", "resolve", "reject");
@@ -418,8 +413,7 @@ describe("pimp", function() {
     });
     describe("when the callback style function errors", function() {
       it("should reject with the error from the underlying callback style function", function(done) {
-        promisifiedReadFile("./thisfiledoesntexist").
-        catch (function(v) {
+        promisifiedReadFile("./thisfiledoesntexist").catch(function(v) {
           done();
         });
       });
