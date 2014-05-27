@@ -55,8 +55,8 @@ It will add a `Pimp` constructor to the `window` object as `window.Pimp` for you
 
 ###Changelog
 
-- [0.2.0](#020)
 - [0.2.1](#021)
+- [0.2.0](#020)
 
 
 ##Constructor
