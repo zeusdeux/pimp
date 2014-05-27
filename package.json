@@ -1,6 +1,6 @@
 {
   "name": "pimp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Pimp is a small & simple (P)romise/A+ (imp)lementation that I wrote to wrap my head around the spec.",
   "main": "lib/wrap.js",
   "repository": {
@@ -28,6 +28,7 @@
   "devDependencies": {
     "mocha": "^1.18.2",
     "promises-aplus-tests": "^2.0.4",
+    "setimmediate": "^1.0.2",
     "should": "^3.3.1",
     "uglify-js": "^2.4.13"
   }
