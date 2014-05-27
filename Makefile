@@ -3,6 +3,10 @@ test:
 	@PIMP_LIB_DIR=../lib/pimp ./node_modules/promises-aplus-tests/lib/cli.js tests/compliance_adapter
 	@PIMP_LIB_DIR=../lib/wrap ./node_modules/.bin/mocha tests/pimpTests.js
 
+test-browser:
+	@PIMP_LIB_DIR=../browser/pimp.min PIMP_BROWSER_TEST=1 ./node_modules/promises-aplus-tests/lib/cli.js tests/compliance_adapter
+	@PIMP_LIB_DIR=../browser/pimp.min PIMP_BROWSER_TEST=1 ./node_modules/.bin/mocha tests/pimpTests.js
+
 gen-browser:
 	node ./generateBrowserVersion.js
 
@@ -19,6 +23,6 @@ clean:
 gen-cov: instrument lib-cov
 	rm -fr instrumented
 
-build: test gen-browser clean
+build: test gen-browser test-browser
 
 .PHONY: test gen-browser lib-cov clean gen-cov build

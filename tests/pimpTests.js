@@ -1,19 +1,26 @@
-var should = require("should");
+require("should");
 var PIMP_LIB_DIR = process.env.PIMP_LIB_DIR.trim();
 var Pimp = require(PIMP_LIB_DIR);
 var helper = require("./pimpTestsHelper");
-var nodeReadFile = require('fs').readFile;
+var nodeReadFile = require("fs").readFile;
+var dir = PIMP_LIB_DIR.split("/");
 
-if ((PIMP_LIB_DIR.split("/")[1] === "lib")) {
-  console.log("  Using wrap.js and pimp.js from: " + PIMP_LIB_DIR.split("/").splice(0,2).join("/"));
-}
-else {
-  console.log("  <h1 id='overview' style='margin:10px 60px 0 60px;'>Coverage for Pimp test suite</h1><p style='margin:10px 60px;display: inline-block;margin-top: 15px;border: 1px solid #EEE; \
+var logMsgs = {
+  lib: function() {
+    console.log("  Using wrap.js and pimp.js from: " + dir.slice(0, 2).join("/"));
+  },
+  browser: function() {
+    console.log("  Using Pimp for the browser (with setImmediate by YuzuJS): "+dir.slice(1).join("/")+".js");
+  },
+  instrumented: function() {
+    console.log("  <h1 id='overview' style='margin:10px 60px 0 60px;'>Coverage for Pimp test suite</h1><p style='margin:10px 60px;display: inline-block;margin-top: 15px;border: 1px solid #EEE; \
               padding: 10px;-webkit-box-shadow: inset 0 0 2px #EEE;-moz-box-shadow: inset 0 0 2px #eee; \
               box-shadow: inset 0 0 2px #EEE;-webkit-border-radius: 5px;-moz-border-radius: 5px;\
-              border-radius: 5px;color: #1BA2D6;font-size: 1.2em;'>Using wrap.js and pimp.js from: " 
-              + PIMP_LIB_DIR.split("/").splice(0,2).join("/") + "</p>");
-}
+              border-radius: 5px;color: #1BA2D6;font-size: 1.2em;'>Using wrap.js and pimp.js from: " + dir.slice(0, 2).join("/") + "</p>");
+  }
+};
+
+logMsgs[dir[1]]();
 
 describe("pimp", function() {
   describe("#inspect", function() {
@@ -108,7 +115,8 @@ describe("pimp", function() {
         var p = new Pimp(function(f, r) {
           r(10);
         });
-        p.catch(function(reason) {
+        p.
+        catch (function(reason) {
           try {
             p.inspect().should.be.an.instanceOf(Object).and.have.properties({
               state: "rejected",
@@ -127,7 +135,8 @@ describe("pimp", function() {
         var p = new Pimp(function(f, r) {
           f(10);
         });
-        p.catch(function(reason) {
+        p.
+        catch (function(reason) {
           return -1;
         }).then(function(v) {
           try {
@@ -255,7 +264,8 @@ describe("pimp", function() {
         p.should.be.an.instanceOf(Pimp);
         p.should.have.property("then");
         p.inspect().state.should.be.exactly("pending");
-        p.catch(function(v) {
+        p.
+        catch (function(v) {
           try {
             v.should.be.exactly("gtfo", "promise returned by Pimp.all rejected with a value other than that of the rejected promise");
             done();
@@ -308,7 +318,8 @@ describe("pimp", function() {
         p.should.be.an.instanceOf(Pimp);
         p.should.have.property("then");
         p.inspect().state.should.be.exactly("pending");
-        p.catch(function(v) {
+        p.
+        catch (function(v) {
           try {
             v.should.be.exactly("gtfo", "promise returned by Pimp.all rejected with a value other than that of the rejected promise");
             done();
@@ -354,7 +365,8 @@ describe("pimp", function() {
         p.should.be.an.instanceOf(Pimp);
         p.should.have.property("then");
         p.inspect().state.should.be.exactly("pending");
-        p.catch(function(v) {
+        p.
+        catch (function(v) {
           try {
             v.should.be.exactly("one", "promise resolved with the wrong value " + v + " instead of 'one'");
             done();
@@ -375,7 +387,7 @@ describe("pimp", function() {
     });
   });
   describe("#deferred", function() {
-    !function() {
+    ! function() {
       var p = Pimp.deferred();
       it("should return an object consisting of {promise, resolve, reject}", function() {
         p.should.have.properties("promise", "resolve", "reject");
@@ -413,7 +425,8 @@ describe("pimp", function() {
     });
     describe("when the callback style function errors", function() {
       it("should reject with the error from the underlying callback style function", function(done) {
-        promisifiedReadFile("./thisfiledoesntexist").catch(function(v) {
+        promisifiedReadFile("./thisfiledoesntexist").
+        catch (function(v) {
           done();
         });
       });

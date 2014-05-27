@@ -1,6 +1,10 @@
-var Pimp = require("../lib/wrap");
+var Pimp;
 
-exports.resolveRacewithOne = function(){
+if (process.env.PIMP_BROWSER_TEST) Pimp = require(process.env.PIMP_LIB_DIR.trim());
+else Pimp = require("../lib/wrap");
+
+
+exports.resolveRacewithOne = function() {
   return [
     new Pimp(function(resolve, reject) {
       setTimeout(resolve, 100, "one");
@@ -17,7 +21,7 @@ exports.resolveRacewithOne = function(){
   ];
 };
 
-exports.rejectRacewithOne = function(){
+exports.rejectRacewithOne = function() {
   return [
     new Pimp(function(resolve, reject) {
       setTimeout(reject, 100, "one");
@@ -66,38 +70,4 @@ exports.rejectedPromisesArrayDelayedByTime = function(time) {
       setTimeout(reject, Math.random() * time, "four");
     })
   ];
-};
-
-exports.resolvedPromisesHashDelayedByTime = function(time) {
-  return {
-    p1: new Pimp(function(resolve, reject) {
-      setTimeout(resolve, Math.random() * time, "one");
-    }),
-    p2: new Pimp(function(resolve, reject) {
-      setTimeout(resolve, Math.random() * time, "two");
-    }),
-    p3: new Pimp(function(resolve, reject) {
-      setTimeout(resolve, Math.random() * time, "three");
-    }),
-    p4: new Pimp(function(resolve, reject) {
-      setTimeout(resolve, Math.random() * time, "four");
-    })
-  };
-};
-
-exports.rejectedPromisesHashDelayedByTime = function(time) {
-  return {
-    p1: new Pimp(function(resolve, reject) {
-      setTimeout(reject, Math.random() * time, "one");
-    }),
-    p2: new Pimp(function(resolve, reject) {
-      setTimeout(reject, Math.random() * time, "two");
-    }),
-    p3: new Pimp(function(resolve, reject) {
-      setTimeout(reject, Math.random() * time, "three");
-    }),
-    p4: new Pimp(function(resolve, reject) {
-      setTimeout(reject, Math.random() * time, "four");
-    })
-  };
 };
