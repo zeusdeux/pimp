@@ -290,7 +290,7 @@
           });
         }
         else {
-          state ? deferred.resolve(value) : deferred.reject(value);
+          (state ? deferred.resolve : deferred.reject)(value);
         }
 
         deferred.done = true;
