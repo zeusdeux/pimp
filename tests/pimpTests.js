@@ -154,7 +154,8 @@ describe("pimp", function() {
   describe("#finally", function() {
     it("should execute passed function irrespective of whether the promise fulfills or rejects", function(done) {
       var p = new Pimp.reject(10);
-      p.finally(function() {
+      p.
+      finally(function() {
         return 20;
       }).then(function() {
         done(new Error("State of promise changed from rejected to fulfilled after finally. That isn't right"));
@@ -174,13 +175,15 @@ describe("pimp", function() {
       Pimp.resolve(p).then(function(v) {
         v.should.be.exactly(10);
         return 20;
-      }).finally(function(v) {
+      }).
+      finally(function(v) {
         v.should.be.exactly(20);
         return v + 10;
       }).then(function(v) {
         v.should.not.eql(30).and.eql(20);
         var innerP = Pimp.reject(v);
-        return innerP.finally(function(v) {
+        return innerP.
+        finally(function(v) {
           v.should.be.exactly(20);
           return;
         }).then(function(v) {
@@ -193,28 +196,46 @@ describe("pimp", function() {
       catch (done);
     });
 
-    describe("when the passed function returns a promise", function(){
-      it("should delay the resolution of the promise it returns till the promise returned by the callback resolves", function(done){
+    describe("when the passed function returns a promise", function() {
+      it("should delay the resolution of the promise it returns till the promise returned by the callback resolves", function(done) {
         var shared = 0;
-        var p = new Pimp(function(res, rej){
-          setTimeout(function(){
+        var p = new Pimp(function(res, rej) {
+          setTimeout(function() {
             res(500);
           }, 1500);
         });
-        var finallyCb = function(){
+        var finallyCb = function() {
           return p;
         };
-        
-        p.then(function(v){
+
+        p.then(function(v) {
           shared = v;
         });
-        
-        Pimp.reject(10).finally(finallyCb).catch(function(e){
+
+        Pimp.reject(10).
+        finally(finallyCb).
+        catch (function(e) {
           e.should.be.exactly(10);
           shared += 5;
           shared.should.be.exactly(505, "the promise returned by finally resolved before the promise returned by finally callback");
           done();
-        }).catch(done);
+        }).
+        catch (done);
+      });
+    });
+
+    describe("when the passed function/callback throws", function() {
+      it("should reject the promise it returns", function(done) {
+        Pimp.cast(10).
+        finally(function() {
+          throw new Error("Finally threw.");
+        }).then(function() {
+          done(new Error("Finally did not reject when its callback threw"));
+        }, function(e) {
+          e.message.should.be.exactly("Finally threw.");
+          done();
+        }).
+        catch (done);
       });
     });
   });
