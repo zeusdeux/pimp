@@ -3,6 +3,7 @@ var PIMP_LIB_DIR = process.env.PIMP_LIB_DIR.trim();
 var Pimp = require(PIMP_LIB_DIR);
 var helper = require("./pimpTestsHelper");
 var nodeReadFile = require("fs").readFile;
+var nodeExec = require("child_process").exec;
 var dir = PIMP_LIB_DIR.split("/");
 
 var logMsgs = {
@@ -10,7 +11,7 @@ var logMsgs = {
     console.log("  Using wrap.js and pimp.js from: " + dir.slice(0, 2).join("/"));
   },
   browser: function() {
-    console.log("  Using Pimp for the browser (with setImmediate by YuzuJS): "+dir.slice(1).join("/")+".js");
+    console.log("  Using Pimp for the browser (with setImmediate by YuzuJS): " + dir.slice(1).join("/") + ".js");
   },
   instrumented: function() {
     console.log("  <h1 id='overview' style='margin:10px 60px 0 60px;'>Coverage for Pimp test suite</h1><p style='margin:10px 60px;display: inline-block;margin-top: 15px;border: 1px solid #EEE; \
@@ -420,10 +421,21 @@ describe("pimp", function() {
   });
   describe("#denodeify", function() {
     var promisifiedReadFile = Pimp.denodeify(nodeReadFile);
+    var promisifiedNodeExec = Pimp.denodeify(nodeExec);
+    describe("when it is called with a non-function as parameter", function(){
+      it("should error out", function(done){
+        try {
+          Pimp.denodeify({this: "should fail"});
+        }
+        catch(e){
+          done();
+        }
+      });
+    });
     it("should return a promisified version of a callback style node function", function() {
       promisifiedReadFile("./readFileTest.json").should.be.an.instanceOf(Pimp).and.have.property("then");
     });
-    describe("when the callback style function errors", function() {
+    describe("when the node callback style function errors", function() {
       it("should reject with the error from the underlying callback style function", function(done) {
         promisifiedReadFile("./thisfiledoesntexist").
         catch (function(v) {
@@ -431,7 +443,7 @@ describe("pimp", function() {
         });
       });
     });
-    describe("when the callback style function succeeds", function() {
+    describe("when the node callback style function succeeds", function() {
       it("should resolve with the value received from the underlying callback style function", function(done) {
         promisifiedReadFile("./tests/readFileTest.json", {
           encoding: "utf8"
@@ -469,6 +481,25 @@ describe("pimp", function() {
             done(e);
           }
         }, 0);
+      });
+    });
+    describe("when the node callback style function returns more than one value on success", function() {
+      it("should resolve with an array of the success values", function(done) {
+        promisifiedNodeExec("echo 1000&& echo 2000>&2").then(function(v) {
+          v.should.be.an.Array;
+          v[0].should.be.exactly("1000\r\n");
+          v[1].should.be.exactly("2000\r\n");
+          done();
+        }).
+        catch (done);
+      });
+    });
+    describe("when the node callback style function that returns more than one value on success, errors out", function() {
+      it("should reject with the error from the underlying callback style function", function(done) {
+        promisifiedNodeExec("cat badfile").
+        catch (function(e) {
+          done();
+        });
       });
     });
   });
