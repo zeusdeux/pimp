@@ -151,6 +151,73 @@ describe("pimp", function() {
       });
     });
   });
+  describe("#finally", function() {
+    it("should execute passed function irrespective of whether the promise fulfills or rejects", function(done) {
+      var p = new Pimp.reject(10);
+      p.finally(function() {
+        return 20;
+      }).then(function() {
+        done(new Error("State of promise changed from rejected to fulfilled after finally. That isn't right"));
+      }, function(v) {
+        v.should.be.exactly(10);
+        done();
+      });
+    });
+
+    it("should not be able to alter the value returned by the previous promise or its state", function(done) {
+      var p = new Pimp(function(res, rej) {
+        setTimeout(function() {
+          res(10);
+        }, 500);
+      });
+
+      Pimp.resolve(p).then(function(v) {
+        v.should.be.exactly(10);
+        return 20;
+      }).finally(function(v) {
+        v.should.be.exactly(20);
+        return v + 10;
+      }).then(function(v) {
+        v.should.not.eql(30).and.eql(20);
+        var innerP = Pimp.reject(v);
+        return innerP.finally(function(v) {
+          v.should.be.exactly(20);
+          return;
+        }).then(function(v) {
+          throw new Error("State of promise changed from rejected to fulfilled after finally. That isn't right");
+        }, function(v) {
+          v.should.be.exactly(20);
+          done();
+        });
+      }).
+      catch (done);
+    });
+
+    describe("when the passed function returns a promise", function(){
+      it("should delay the resolution of the promise it returns till the promise returned by the callback resolves", function(done){
+        var shared = 0;
+        var p = new Pimp(function(res, rej){
+          setTimeout(function(){
+            res(500);
+          }, 1500);
+        });
+        var finallyCb = function(){
+          return p;
+        };
+        
+        p.then(function(v){
+          shared = v;
+        });
+        
+        Pimp.reject(10).finally(finallyCb).catch(function(e){
+          e.should.be.exactly(10);
+          shared += 5;
+          shared.should.be.exactly(505, "the promise returned by finally resolved before the promise returned by finally callback");
+          done();
+        }).catch(done);
+      });
+    });
+  });
   describe("#done", function() {
     //stub
   });
@@ -422,12 +489,14 @@ describe("pimp", function() {
   describe("#denodeify", function() {
     var promisifiedReadFile = Pimp.denodeify(nodeReadFile);
     var promisifiedNodeExec = Pimp.denodeify(nodeExec);
-    describe("when it is called with a non-function as parameter", function(){
-      it("should error out", function(done){
+    describe("when it is called with a non-function as parameter", function() {
+      it("should error out", function(done) {
         try {
-          Pimp.denodeify({this: "should fail"});
+          Pimp.denodeify({
+            this: "should fail"
+          });
         }
-        catch(e){
+        catch (e) {
           done();
         }
       });
