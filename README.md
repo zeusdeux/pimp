@@ -55,8 +55,8 @@ It will add a `Pimp` constructor to the `window` object as `window.Pimp` for you
 
 ###Changelog
 
-- [0.2.0](#020)
 - [0.2.1](#021)
+- [0.2.0](#020)
 
 
 ##Constructor
@@ -286,7 +286,7 @@ filePromise.then(function(data){
 ####0.2.1
 - major performance upgrade for Pimp in the browser
 - Pimp for the browser now comes bundled with [setImmediate shim](https://github.com/YuzuJS/setImmediate)
-- It now is faster in the browser than [Q](https://github.com/kriskowal/q) according to the tests [here](http://jsperf.com/pimp-vs-bluebird-vs-q-vs-rsvp)
+- It now is faster in the browser than [Q](https://github.com/kriskowal/q) according to the tests [here](http://jsperf.com/pimp-vs-bluebird-vs-q-vs-rsvp/3)
 - The build process now tests the generated browser code too
 
 ####0.2.0
