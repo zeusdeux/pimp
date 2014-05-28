@@ -137,11 +137,12 @@ p.catch(function(v){
 ```
 
 ###finally(callback)
-It is analogous to `finally` in `try-catch-finally` clause and returns a `promise`.
-It lets you run a `callback` irrespective of the final state of the promise it (i.e., `finally`) is chained to.
-It lets you do so without changing the value/reason/state that the promise it is chained to resolved/rejected with.
-Therefore, you can chain to a `finally` call just like you would if it weren't there i.e., it is transparent.
-If the `callback` given to finally returns a promise, then the resolution of the promise returned by `finally` is delayed till the promise returned by the `callback` resolves.
+It is analogous to `finally` in `try-catch-finally` clause and returns a `promise`.   
+It lets you run a `callback` irrespective of the final state of the promise it (i.e., `finally`) is chained to.   
+It lets you do so without changing the value/reason/state that the promise it is chained to resolved/rejected with.   
+Therefore, you can chain to a `finally` call just like you would if it weren't there i.e., it is transparent.   
+If the `callback` given to finally returns a promise, then the resolution of the promise returned by `finally` is delayed till the promise returned by the `callback` resolves.   
+It works like [Q's finally](https://github.com/kriskowal/q/wiki/API-Reference#promisefinallycallback) implementation.
 
 Example:
 ```javascript
