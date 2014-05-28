@@ -41,6 +41,7 @@ It will add a `Pimp` constructor to the `window` object as `window.Pimp` for you
 - [then](#thenonfulfilled-onrejected)
 - [inspect](#inspect)
 - [catch](#catchrejectionhandler)
+- [finally](#finallycallback)
 
 ###Static
 
@@ -55,6 +56,7 @@ It will add a `Pimp` constructor to the `window` object as `window.Pimp` for you
 
 ###Changelog
 
+- [0.2.3](#023)
 - [0.2.2](#022)
 - [0.2.1](#021)
 - [0.2.0](#020)
@@ -133,6 +135,26 @@ p.catch(function(v){
     console.log(v); //logs 10
 });
 ```
+
+###finally(callback)
+It is analogous to `finally` in `try-catch-finally` clause and returns a `promise`.
+It lets you run a `callback` irrespective of the final state of the promise it (i.e., `finally`) is chained to.
+It lets you do so without changing the value/reason/state that the promise it is chained to resolved/rejected with.
+Therefore, you can chain to a `finally` call just like you would if it weren't there i.e., it is transparent.
+If the `callback` given to finally returns a promise, then the resolution of the promise returned by `finally` is delayed till the promise returned by the `callback` resolves.
+
+Example:
+```javascript
+var p = Pimp.resolve(10).finally(function(v){
+    console.log(v); //logs 10
+    return 20;
+}).then(function(v){
+    console.log(v); //logs 10 (value returned by finally callback is ignored)
+});
+```
+
+#####Note:
+- If the `callback` given to `finally` throws then the `promise` returned by `finally` rejects with that error as reason.
 
 ##Static methods
 
@@ -283,6 +305,11 @@ filePromise.then(function(data){
 });
 ```
 ##Changelog
+
+####0.2.3
+- Added `Pimp.prototype.finally`
+- Added more tests
+- Bugfixes
 
 ####0.2.2
 - Bugfixes
