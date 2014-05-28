@@ -55,6 +55,7 @@ It will add a `Pimp` constructor to the `window` object as `window.Pimp` for you
 
 ###Changelog
 
+- [0.2.2](#022)
 - [0.2.1](#021)
 - [0.2.0](#020)
 
@@ -282,6 +283,9 @@ filePromise.then(function(data){
 });
 ```
 ##Changelog
+
+####0.2.2
+- Bugfixes
 
 ####0.2.1
 - major performance upgrade for Pimp in the browser
