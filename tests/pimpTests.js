@@ -487,8 +487,8 @@ describe("pimp", function() {
       it("should resolve with an array of the success values", function(done) {
         promisifiedNodeExec("echo 1000&& echo 2000>&2").then(function(v) {
           v.should.be.an.Array;
-          v[0].should.be.exactly("1000\r\n");
-          v[1].should.be.exactly("2000\r\n");
+          parseInt(v[0], 10).should.be.exactly(1000);
+          parseInt(v[1], 10).should.be.exactly(2000);
           done();
         }).
         catch (done);
